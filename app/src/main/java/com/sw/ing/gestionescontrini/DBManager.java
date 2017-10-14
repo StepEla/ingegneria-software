@@ -25,13 +25,13 @@ public class DBManager {
                 KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_DATE + " TEXT, " +
                 KEY_URLPICTURE + " TEXT);";
-        // !! La data è di tipo text perchè in SQLLite non esiste un tipo di dato datetime sarà
-        // cura dello sviluppatore prestare attenzione al format della data in fase di inserimento
+        // !! La data è di tipo text perchè in SQLLite non esiste un tipo di dato datetime.
+        // Sarà cura dello sviluppatore prestare attenzione al format della data in fase di inserimento
 
         db.execSQL(CreateTable);
     }
 
-    // Inserimento di un nuovo scontrino tramite na foto
+    // Inserimento di un nuovo scontrino tramite la foto
 
     // Cancellazione di uno scontrino
 }
