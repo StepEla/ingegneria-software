@@ -32,6 +32,9 @@ public class DBManager {
     }
 
     // Inserimento di un nuovo scontrino tramite la foto
+    void addTicket(){
+
+    }
 
     // Cancellazione di uno scontrino
 }
