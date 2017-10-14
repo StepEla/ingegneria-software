@@ -11,8 +11,9 @@ import java.net.URL;
 
 public class Ticket {
     int ID;
-    String Date;
-    String UrlPicture;
+    static String Date; // MAT## verificare l'utilizzo della variabile di tipo statico, messo perchè
+    // non getDate e getUrlPicture non permettevano la restituzione di tali valori
+    static String UrlPicture;
 
     public Ticket() {
 
@@ -32,7 +33,7 @@ public class Ticket {
         this.ID = ID;
     }
 
-    public String getDate() {
+    public static String getDate() {
         return Date;
     }
 
@@ -40,7 +41,7 @@ public class Ticket {
         Date = date;
     }
 
-    public String getUrlPicture() {
+    public static String getUrlPicture() {
         return UrlPicture;
     }
 
