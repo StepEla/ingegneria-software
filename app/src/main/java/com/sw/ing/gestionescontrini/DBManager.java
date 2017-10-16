@@ -52,18 +52,32 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // Inserimento di un nuovo scontrino tramite la foto
-    void addTicket() {
+    void addTicket(Ticket ticket) {
         SQLiteDatabase DB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, Ticket.getDate());
-        values.put(KEY_URLPICTURE, Ticket.getUrlPicture());
+        values.put(KEY_DATE, ticket.getDate());
+        values.put(KEY_URLPICTURE, ticket.getUrlPicture());
 
         DB.insert(TABLE_NAME, null, values);
         DB.close();
     }
 
-    // Cancellazione di uno scontrino
+    // Restituisce la foto dello scontrino dato il suo ID
+    Ticket getTicket(int ID) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor;
+        String[] ColumnList, ID_Ticket;
+
+        ID_Ticket = new String[]{String.valueOf(ID)};
+        ColumnList = new String[]{KEY_ID, KEY_DATE, KEY_URLPICTURE};
+        cursor = DB.query(TABLE_NAME, ColumnList, KEY_ID + "=?", ID_Ticket, null, null, null, null);
+        if (cursor != null) { cursor.moveToFirst(); }
+
+        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+
+        return ticket;
+    }
 
     // Restituisce la lista degli scontrini presenti
     public List<Ticket> getAllTickets() {
@@ -93,4 +107,7 @@ public class DBManager extends SQLiteOpenHelper {
         return ticketList;
     }
 
+    // Cancellazione di uno scontrino
+
+    // Modifica della foto dello scontrino
 }
