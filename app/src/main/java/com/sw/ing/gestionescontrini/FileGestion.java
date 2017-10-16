@@ -8,5 +8,5 @@ import java.io.File;
 
 public interface FileGestion {
 
-    public File getNewFileName ();
+    public File getNewFile();
 }

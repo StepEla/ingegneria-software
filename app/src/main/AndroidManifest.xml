@@ -3,7 +3,9 @@
     package="com.sw.ing.gestionescontrini">
 
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +22,15 @@
         </activity>
         <uses-feature android:name="android.hardware.camera"
             android:required="true" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sw.ing.gestionescontrini"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_path" />
+        </provider>
     </application>
 
 

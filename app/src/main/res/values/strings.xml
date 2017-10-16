@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">GestioneScontrini</string>
     <string name="photo_button">Scatta una foto</string>
+    <string name="photo_directory">/mnt/sdcard/photos</string>
+    <string name="debug_tag">GestioneScontrini</string>
 </resources>
