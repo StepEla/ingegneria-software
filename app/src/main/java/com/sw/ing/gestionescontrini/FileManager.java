@@ -1,13 +1,9 @@
 package com.sw.ing.gestionescontrini;
 
 import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,8 +21,8 @@ public class FileManager implements FileGestion{
 
     @Override
     public File getNewFile(){
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "photo"+getLastPhotoId();
+        int id = getNewPhotoId();
+        String imageFileName = "photo"+ getNewPhotoId();
         File storageDir = new File(c.getResources().getString(R.string.photo_directory));
         storageDir.mkdirs();
         File image = new File(storageDir,imageFileName+".jpg");
@@ -38,7 +34,18 @@ public class FileManager implements FileGestion{
         return image;
     }
 
-    public int getLastPhotoId(){
+    @Override
+    public boolean createTicketAndInsert(String path, String date) {
+        Ticket ticket = new Ticket();
+        ticket.setUrlPicture(path);
+        ticket.setDate(date);
+        ticket.setID(getNewPhotoId());
+        dbmanager.addTicket(ticket);
+        return false;
+    }
+
+
+    public int getNewPhotoId(){
         List<Ticket> tickets = dbmanager.getAllTickets();
         int maxId = 0;
         for(Ticket t : tickets){
@@ -46,7 +53,10 @@ public class FileManager implements FileGestion{
                 maxId = t.getID();
         }
         maxId++;
-        Log.d(c.getResources().getString(R.string.debug_tag),"ID: "+maxId);
         return maxId;
+    }
+
+    public List<Ticket> getTickets(){
+        return dbmanager.getAllTickets();
     }
 }

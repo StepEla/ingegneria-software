@@ -9,4 +9,5 @@ import java.io.File;
 public interface FileGestion {
 
     public File getNewFile();
+    public boolean createTicketAndInsert(String path, String date);
 }
