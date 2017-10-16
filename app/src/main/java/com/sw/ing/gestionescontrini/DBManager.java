@@ -108,6 +108,5 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     // Cancellazione di uno scontrino
-
     // Modifica della foto dello scontrino
 }
