@@ -28,20 +28,13 @@ public class FileManager implements FileGestion{
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "photo"+getLastPhotoId();
         File storageDir = new File(c.getResources().getString(R.string.photo_directory));
-        if(!storageDir.mkdirs()){
-            Log.d(c.getResources().getString(R.string.debug_tag),"Impossibile creare");
-        }
-        File image = null;
+        storageDir.mkdirs();
+        File image = new File(storageDir,imageFileName+".jpg");
         try {
-            image = File.createTempFile(imageFileName, ".jpg", storageDir);
-            if(!image.exists()){
-                Log.d(c.getResources().getString(R.string.debug_tag),"Il file non esiste");
-            }
-        }catch (IOException e){
-            Log.d(c.getResources().getString(R.string.debug_tag),e.getMessage());
+            image.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Save a file: path for use with ACTION_VIEW intents
         return image;
     }
 
@@ -53,6 +46,7 @@ public class FileManager implements FileGestion{
                 maxId = t.getID();
         }
         maxId++;
+        Log.d(c.getResources().getString(R.string.debug_tag),"ID: "+maxId);
         return maxId;
     }
 }

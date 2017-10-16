@@ -45,12 +45,10 @@ public class MainActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //creo l'intent
         if(takePictureIntent.resolveActivity(getPackageManager())!=null){ //controllo che la camera sia disponibile
             newPhoto = fileManager.getNewFile();
-            Log.d(getResources().getString(R.string.debug_tag),newPhoto.getAbsolutePath());
             Uri imageUri = Uri.fromFile(newPhoto);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             Log.d(getResources().getString(R.string.debug_tag),newPhoto.getAbsolutePath());
             startActivityForResult(takePictureIntent,REQUEST_PHOTO); //chiama l'Activity della fotocamera e attendo che l'utente abbia scattato la foto
-            Log.d(getResources().getString(R.string.debug_tag),"Activity called");
         }
     }
 
