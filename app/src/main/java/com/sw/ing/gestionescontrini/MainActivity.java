@@ -18,6 +18,7 @@ import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
 
+    //cerca l'edit text dove scrivere
     EditText EditText1 = (EditText)findViewById(R.id.EditText1);
 
     @Override
