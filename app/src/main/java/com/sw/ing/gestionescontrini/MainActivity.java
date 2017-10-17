@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
@@ -57,7 +59,21 @@ public class MainActivity extends AppCompatActivity {
             imageUri = Uri.fromFile(newPhoto);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             Log.d(getResources().getString(R.string.debug_tag),newPhoto.getAbsolutePath());
-            startActivityForResult(takePictureIntent,REQUEST_PHOTO); //chiama l'Activity della fotocamera e attendo che l'utente abbia scattato la foto
+            startActivityForResult(takePictureIntent, REQUEST_PHOTO); //chiama l'Activity della fotocamera e attendo che l'utente abbia scattato la foto
+
+            /*
+            SUGGERIMENTO PER FEDE: ho ipotizzato un controllo di questo tipo. Avendo gestito te questa parte di codice lascio
+            a te valutare se può andar bene e come inserirla nel modo corretto all'interno del codice
+            // Controllo se il dispositivo supporta la memoria esterna e se è presente
+            Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+            Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+
+            if (isSDPresent && isSDSupportedDevice) {
+                startActivityForResult(takePictureIntent, REQUEST_PHOTO); //chiama l'Activity della fotocamera e attendo che l'utente abbia scattato la foto
+            } else {
+                // E' necessario gestire il salvataggio in locale della fotocamera
+            }
+            */
         }
     }
 
