@@ -1,12 +1,14 @@
 package com.sw.ing.gestionescontrini;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         photoButton = findViewById(R.id.photo_button);  //oggetto corrispondente al bottone per scattare la foto
         listView = findViewById(R.id.list);
         fileManager = new FileManager(this); //istanzio un oggetto della classe che gestisce i file
+        tickets = new ArrayList<Ticket>();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) { //controllo i permessi
             //controllo i permessi, se l'utente non ha autorizzato l'app ad usare la fotocamera
             photoButton.setEnabled(false); //disabilito il bottone
@@ -55,12 +58,40 @@ public class MainActivity extends AppCompatActivity {
         loadTickets();
         adapter = new ArrayAdapter<Ticket>(this, android.R.layout.simple_list_item_1, tickets);
         listView.setAdapter(adapter);
+        listView.setLongClickable(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Ticket t = (Ticket)listView.getItemAtPosition(position);
                 chiamaViewTicketActivity(t);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+                final Ticket t = (Ticket) listView.getItemAtPosition(pos);
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                tickets.remove(t);
+                                fileManager.deleteTicket(t);
+                                adapter.notifyDataSetChanged();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(listView.getContext());
+                builder.setMessage("Vuoi eliminare questo scontrino?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+                return true;
             }
         });
     }
@@ -115,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             String timeStamp = new SimpleDateFormat("dd.MM.yyyy 'ore' HH:mm").format(new Date());
             String path = newPhoto.getAbsolutePath();
             addTicketToView(fileManager.createTicketAndInsert(path,timeStamp, nome));
+            Log.d(getResources().getString(R.string.debug_tag),"AGGIUNTO TICKET ALLA VIEW");
         }else if(requestCode == NAME_SET &&  resultCode == RESULT_CANCELED){
             newPhoto.delete();
         }
@@ -126,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadTickets(){
-        tickets = fileManager.getTickets();
+        tickets.addAll(fileManager.getTickets());
         Log.d(getResources().getString(R.string.debug_tag),"Foto in db: ");
         for(Ticket t : tickets){
             Log.d(getResources().getString(R.string.debug_tag),"ID: "+t.getID());
@@ -148,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tickets = fileManager.getTickets();
     }
 
     @Override

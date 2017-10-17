@@ -53,6 +53,12 @@ public class DBManager extends SQLiteOpenHelper {
         onCreate(DB);
     }
 
+    public void removeTicket(Ticket t){
+        SQLiteDatabase DB =this.getWritableDatabase();
+        DB.delete(TABLE_NAME,KEY_ID+" = "+t.getID(),null);
+        DB.close();
+    }
+
     // Inserimento di un nuovo scontrino tramite la foto
     void addTicket(Ticket ticket) {
         SQLiteDatabase DB = this.getWritableDatabase();

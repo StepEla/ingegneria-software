@@ -60,4 +60,9 @@ public class FileManager implements FileGestion{
     public List<Ticket> getTickets(){
         return dbmanager.getAllTickets();
     }
+
+    public void deleteTicket(Ticket t){
+        File f = new File(t.getUrlPicture());
+        dbmanager.removeTicket(t);
+    }
 }
