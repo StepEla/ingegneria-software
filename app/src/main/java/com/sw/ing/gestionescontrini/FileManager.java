@@ -40,6 +40,7 @@ public class FileManager implements FileGestion{
         ticket.setUrlPicture(path);
         ticket.setDate(date);
         ticket.setID(getNewPhotoId());
+        ticket.setPictureName("NULL"); //Provvisorio
         dbmanager.addTicket(ticket);
         return false;
     }

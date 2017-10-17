@@ -102,7 +102,6 @@ public class DBManager extends SQLiteOpenHelper {
                 ticket.setDate(cursor.getString(1)); // 1 - seconda colonna
                 ticket.setPictureName(cursor.getString(2)); // 2 - terza colonna
                 ticket.setUrlPicture(cursor.getString(3)); // 3 - quarta colonna
-
                 ticketList.add(ticket);
 
             } while (cursor.moveToNext());
