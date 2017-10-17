@@ -42,7 +42,7 @@ public class Ticket {
         Date = date;
     }
 
-    public static String getUrlPicture() {
+    public String getUrlPicture() {
         return UrlPicture;
     }
 
@@ -50,7 +50,7 @@ public class Ticket {
         UrlPicture = urlPicture;
     }
 
-    public static String getPictureName() {
+    public String getPictureName() {
         return PictureName;
     }
 
