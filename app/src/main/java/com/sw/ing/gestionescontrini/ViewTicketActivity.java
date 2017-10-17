@@ -49,6 +49,7 @@ public class ViewTicketActivity extends AppCompatActivity {
         text=(EditText) findViewById(R.id.textTicket);
         image=(ImageView) findViewById(R.id.ticketImage);
 
+
         text.setText(ticketName);
         image.setImageURI(path);
 
