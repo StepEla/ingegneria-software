@@ -26,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static int REQUEST_PHOTO = 1;
+    private static String SEND_TICKET_TO_ACTIVITY = "com.sw.ing.gestionescontrini.send_ticket_to_activity";
     private File newPhoto;
     private FileManager fileManager;
     private List<Ticket> tickets;
@@ -118,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadTickets(){
         tickets = fileManager.getTickets();
+        Log.d(getResources().getString(R.string.debug_tag),"Foto in db: ");
         for(Ticket t : tickets){
-            Log.d(getResources().getString(R.string.debug_tag),"Foto in db: ");
             Log.d(getResources().getString(R.string.debug_tag),"ID: "+t.getID());
             Log.d(getResources().getString(R.string.debug_tag),"Nome "+t.getPictureName());
             Log.d(getResources().getString(R.string.debug_tag),"URL: "+t.getUrlPicture());
@@ -129,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
     //chiama activity che visualizza lo scontrino selezionato
     //scritto da Olivieri con la spiegazione di Taschin
     public void chiamaViewTicketActivity(Ticket t){
-        Intent intent = new Intent();
-        intent.putExtra("PassaggioTicket",t);
+        Intent intent = new Intent(this, ViewTicketActivity.class);
+        intent.putExtra(SEND_TICKET_TO_ACTIVITY,t);
         startActivity(intent);
     }
     
