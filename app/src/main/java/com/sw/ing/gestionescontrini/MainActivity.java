@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static int REQUEST_PHOTO = 1;
-    private static String SEND_TICKET_TO_ACTIVITY = "com.sw.ing.gestionescontrini.send_ticket_to_activity";
+    public static String SEND_TICKET_TO_ACTIVITY = "com.sw.ing.gestionescontrini.send_ticket_to_activity";
     private File newPhoto;
     private FileManager fileManager;
     private List<Ticket> tickets;

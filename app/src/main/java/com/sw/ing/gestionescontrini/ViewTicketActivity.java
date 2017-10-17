@@ -54,4 +54,6 @@ public class ViewTicketActivity extends AppCompatActivity {
         image.setImageURI(path);
 
     }
+
+
 }
