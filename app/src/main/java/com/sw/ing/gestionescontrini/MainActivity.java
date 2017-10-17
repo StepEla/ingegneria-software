@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Ticket t = (Ticket)listView.getItemAtPosition(position);
+                chiamaViewTicketActivity(t);
             }
         });
     }
@@ -127,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     //chiama activity che visualizza lo scontrino selezionato
     //scritto da Olivieri con la spiegazione di Taschin
-    public void chiamaViewTicketActivity(){
-        Ticket t = new Ticket();
+    public void chiamaViewTicketActivity(Ticket t){
         Intent intent = new Intent();
         intent.putExtra("PassaggioTicket",t);
         startActivity(intent);
