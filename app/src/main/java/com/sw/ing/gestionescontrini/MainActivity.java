@@ -11,10 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
         loadTickets();
         adapter = new ArrayAdapter<Ticket>(this, android.R.layout.simple_list_item_1, tickets);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                Ticket t = (Ticket)listView.getItemAtPosition(position);
+                
+            }
+        });
     }
 
 
@@ -97,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode ==REQUEST_PHOTO && resultCode == RESULT_OK){
-            String timeStamp = new SimpleDateFormat("dd.MM.yyyy ore HH:mm").format(new Date());
+            String timeStamp = new SimpleDateFormat("dd.MM.yyyy 'ore' HH:mm").format(new Date());
             String path = newPhoto.getAbsolutePath();
             addTicketToView(fileManager.createTicketAndInsert(path,timeStamp));
         }
@@ -117,16 +125,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(getResources().getString(R.string.debug_tag),"URL: "+t.getUrlPicture());
         }
     }
-
-
-
-    /*private void setTickets(){
-        tickets = fileManager.getTickets();
-        listViewContent = new ArrayList<String>();
-        for(Ticket t : tickets){
-            listViewContent.add(t.getPictureName()+" "+t.getDate());
-        }
-    }*/
+    
 
     @Override
     protected void onResume() {
