@@ -16,7 +16,7 @@ public class Ticket implements Serializable {
     static String UrlPicture;
     static String PictureName;
 
-    public Ticket() {
+    public Ticket() { // costruttore vuoto
 
     }
 
