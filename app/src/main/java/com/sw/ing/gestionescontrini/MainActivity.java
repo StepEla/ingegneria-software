@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Ticket t = (Ticket)listView.getItemAtPosition(position);
-                
             }
         });
     }
@@ -124,6 +123,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d(getResources().getString(R.string.debug_tag),"Nome "+t.getPictureName());
             Log.d(getResources().getString(R.string.debug_tag),"URL: "+t.getUrlPicture());
         }
+    }
+
+    //chiama activity che visualizza lo scontrino selezionato
+    //scritto da Olivieri con la spiegazione di Taschin
+    public void chiamaViewTicketActivity(){
+        Ticket t = new Ticket();
+        Intent intent = new Intent();
+        intent.putExtra("PassaggioTicket",t);
+        startActivity(intent);
     }
     
 
