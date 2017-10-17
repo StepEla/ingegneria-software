@@ -4,24 +4,25 @@ import java.net.URL;
 
 /**
  * Classe Ticket contenente ID, data di inserimento dello scontrino e percorso del file contenente
- * l'immagine dello scontrino
+ * l'immagine dello scontrino e nome del file.
  *
  * Created by matteo.mascotto on 14/10/2017.
  */
 
 public class Ticket {
     int ID;
-    static String Date; // MAT## verificare l'utilizzo della variabile di tipo statico, messo perchè
-    // non getDate e getUrlPicture non permettevano la restituzione di tali valori
+    static String Date;
     static String UrlPicture;
+    static String PictureName;
 
     public Ticket() {
 
     }
 
-    public Ticket(int id, String Date, String UrlPicture) {
+    public Ticket(int id, String Date, String UrlPicture, String string) {
         this.ID = id;
         this.Date = Date;
+        this.PictureName = PictureName;
         this.UrlPicture = UrlPicture;
     }
 
@@ -47,5 +48,13 @@ public class Ticket {
 
     public void setUrlPicture(String urlPicture) {
         UrlPicture = urlPicture;
+    }
+
+    public static String getPictureName() {
+        return PictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        PictureName = pictureName;
     }
 }

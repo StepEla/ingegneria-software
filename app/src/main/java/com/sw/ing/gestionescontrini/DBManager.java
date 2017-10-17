@@ -24,6 +24,7 @@ public class DBManager extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "ticket";
     private static final String KEY_ID = "id_ticket";
     private static final String KEY_DATE = "dateTicket";
+    private static final String KEY_PICTURENAME = "PictureName";
     private static final String KEY_URLPICTURE = "urlPicture";
 
     public DBManager(Context context) {
@@ -37,6 +38,7 @@ public class DBManager extends SQLiteOpenHelper {
         CreateTable = "CREATE TABLE " + TABLE_NAME + "(" +
                 KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_DATE + " TEXT, " +
+                KEY_PICTURENAME + " TEXT, " +
                 KEY_URLPICTURE + " TEXT);";
         // !! La data è di tipo text perchè in SQLLite non esiste un tipo di dato datetime.
         // Sarà cura dello sviluppatore prestare attenzione al format della data in fase di inserimento
@@ -57,6 +59,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, ticket.getDate());
+        values.put(KEY_PICTURENAME, ticket.getPictureName());
         values.put(KEY_URLPICTURE, ticket.getUrlPicture());
 
         DB.insert(TABLE_NAME, null, values);
@@ -70,11 +73,11 @@ public class DBManager extends SQLiteOpenHelper {
         String[] ColumnList, ID_Ticket;
 
         ID_Ticket = new String[]{String.valueOf(ID)};
-        ColumnList = new String[]{KEY_ID, KEY_DATE, KEY_URLPICTURE};
+        ColumnList = new String[]{KEY_ID, KEY_DATE, KEY_PICTURENAME, KEY_URLPICTURE};
         cursor = DB.query(TABLE_NAME, ColumnList, KEY_ID + "=?", ID_Ticket, null, null, null, null);
         if (cursor != null) { cursor.moveToFirst(); }
 
-        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
         return ticket;
     }
@@ -97,7 +100,8 @@ public class DBManager extends SQLiteOpenHelper {
                 Ticket ticket = new Ticket();
                 ticket.setID(Integer.parseInt(cursor.getString(0))); // 0 - prima colonna
                 ticket.setDate(cursor.getString(1)); // 1 - seconda colonna
-                ticket.setUrlPicture(cursor.getString(2)); // 2 - terza colonna
+                ticket.setPictureName(cursor.getString(2)); // 2 - terza colonna
+                ticket.setUrlPicture(cursor.getString(3)); // 3 - quarta colonna
 
                 ticketList.add(ticket);
 
