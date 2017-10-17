@@ -1,5 +1,6 @@
 package com.sw.ing.gestionescontrini;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -15,11 +16,13 @@ import junit.framework.Test;
 
 public class ViewTicketActivity extends AppCompatActivity {
 
+    private static String RESULT_NAME = "com.sw.ing.gestionescontrini.ticket_name";
     private String ticketName;
     private String ticketURL;
 
     private EditText text;
     private ImageView image;
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +41,12 @@ public class ViewTicketActivity extends AppCompatActivity {
         //SERVE UN URI PER IMMAGINE
         //image.setImageURI(ticketURL);
 
+    }
+
+    private void exit(){
+        data = new Intent();
+        data.putExtra(RESULT_NAME,ticketName);
+        setResult(RESULT_OK,data);
+        finish();
     }
 }

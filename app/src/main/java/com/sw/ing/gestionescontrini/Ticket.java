@@ -12,15 +12,15 @@ import java.net.URL;
 
 public class Ticket implements Serializable {
     int ID;
-    static String Date;
-    static String UrlPicture;
-    static String PictureName;
+    String Date;
+    String UrlPicture;
+    String PictureName;
 
     public Ticket() { // costruttore vuoto
 
     }
 
-    public Ticket(int id, String Date, String UrlPicture, String string) {
+    public Ticket(int id, String Date, String UrlPicture, String PictureName) {
         this.ID = id;
         this.Date = Date;
         this.PictureName = PictureName;
@@ -35,7 +35,7 @@ public class Ticket implements Serializable {
         this.ID = ID;
     }
 
-    public static String getDate() {
+    public  String getDate() {
         return Date;
     }
 
@@ -57,5 +57,9 @@ public class Ticket implements Serializable {
 
     public void setPictureName(String pictureName) {
         PictureName = pictureName;
+    }
+
+    public String toString(){
+        return getPictureName()+" "+getDate();
     }
 }
