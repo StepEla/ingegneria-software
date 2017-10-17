@@ -1,6 +1,5 @@
 package com.sw.ing.gestionescontrini;
 
-import java.io.Serializable;
 import java.net.URL;
 
 /**
@@ -12,9 +11,9 @@ import java.net.URL;
 
 public class Ticket implements Serializable{
     int ID;
-     String Date;
-     String UrlPicture;
-     String PictureName;
+    static String Date;
+    static String UrlPicture;
+    static String PictureName;
 
     public Ticket() {
 
@@ -35,7 +34,7 @@ public class Ticket implements Serializable{
         this.ID = ID;
     }
 
-    public String getDate() {
+    public static String getDate() {
         return Date;
     }
 
@@ -43,7 +42,7 @@ public class Ticket implements Serializable{
         Date = date;
     }
 
-    public  String getUrlPicture() {
+    public String getUrlPicture() {
         return UrlPicture;
     }
 
@@ -51,15 +50,11 @@ public class Ticket implements Serializable{
         UrlPicture = urlPicture;
     }
 
-    public  String getPictureName() {
+    public String getPictureName() {
         return PictureName;
     }
 
     public void setPictureName(String pictureName) {
         PictureName = pictureName;
     }
-    public String toString(){
-        return getPictureName()+" "+getDate();
-    }
-
 }
