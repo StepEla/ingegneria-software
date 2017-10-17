@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">GestioneScontrini</string>
+    <string name="app_name">TicketSearch</string>
     <string name="photo_button">Scatta una foto</string>
     <string name="photo_directory">/mnt/sdcard/photos</string>
     <string name="debug_tag">GestioneScontrini</string>
     <string name="main_title">I tuoi scontrini</string>
+    <string name="title_activity_inserisci_nome">InserisciNomeActivity</string>
+    <string name="insert_name_text">Inserisci un nome per lo scontrino</string>
+    <string name="set_nome_button_text">Ok</string>
 </resources>

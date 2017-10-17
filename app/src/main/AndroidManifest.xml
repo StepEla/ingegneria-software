@@ -27,7 +27,10 @@
             android:name="android.hardware.camera"
             android:required="true" />
 
-        <activity android:name=".ViewTicketActivity"></activity>
+        <activity android:name=".ViewTicketActivity" />
+        <activity
+            android:name=".InserisciNomeActivity"
+            android:label="@string/title_activity_inserisci_nome"></activity>
     </application>
 
 </manifest>

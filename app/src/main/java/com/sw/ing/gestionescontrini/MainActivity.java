@@ -26,12 +26,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static int REQUEST_PHOTO = 1;
+    private static int NAME_SET = 2;
+    private boolean setting_name = false;
     public static String SEND_TICKET_TO_ACTIVITY = "com.sw.ing.gestionescontrini.send_ticket_to_activity";
     private File newPhoto;
     private FileManager fileManager;
     private List<Ticket> tickets;
     private ArrayList<String> listViewContent;
-
     //Components
     private Button photoButton;
     private ListView listView;
@@ -106,9 +107,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode ==REQUEST_PHOTO && resultCode == RESULT_OK){
+            Intent intent = new Intent(this, InserisciNomeActivity.class);
+            startActivityForResult(intent, NAME_SET);
+        }else if(requestCode == NAME_SET &&  resultCode == RESULT_OK){
+            setting_name = false;
+            String nome = data.getData().toString();
             String timeStamp = new SimpleDateFormat("dd.MM.yyyy 'ore' HH:mm").format(new Date());
             String path = newPhoto.getAbsolutePath();
-            addTicketToView(fileManager.createTicketAndInsert(path,timeStamp));
+            addTicketToView(fileManager.createTicketAndInsert(path,timeStamp, nome));
+        }else if(requestCode == NAME_SET &&  resultCode == RESULT_CANCELED){
+            newPhoto.delete();
         }
     }
 
@@ -134,11 +142,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(SEND_TICKET_TO_ACTIVITY,t);
         startActivity(intent);
     }
+
     
 
     @Override
     protected void onResume() {
         super.onResume();
         tickets = fileManager.getTickets();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(setting_name ){
+            newPhoto.delete();
+        }
     }
 }

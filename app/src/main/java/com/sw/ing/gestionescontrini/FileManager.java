@@ -35,12 +35,12 @@ public class FileManager implements FileGestion{
     }
 
     @Override
-    public Ticket createTicketAndInsert(String path, String date) {
+    public Ticket createTicketAndInsert(String path, String date, String name) {
         Ticket ticket = new Ticket();
         ticket.setUrlPicture(path);
         ticket.setDate(date);
         ticket.setID(getNewPhotoId());
-        ticket.setPictureName("Comprato pane"); //Provvisorio
+        ticket.setPictureName(name); //Provvisorio
         dbmanager.addTicket(ticket);
         return ticket;
     }
