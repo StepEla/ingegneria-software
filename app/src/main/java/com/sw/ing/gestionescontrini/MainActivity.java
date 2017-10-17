@@ -40,19 +40,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) { //metodo che viene chiamato all'avvio dell'applicazione
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fileManager = new FileManager(this); //istanzio un oggetto della classe che gestisce i file
         photoButton = findViewById(R.id.photo_button);  //oggetto corrispondente al bottone per scattare la foto
+        listView = findViewById(R.id.list_view);
+        fileManager = new FileManager(this); //istanzio un oggetto della classe che gestisce i file        
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) { //controllo i permessi
             //controllo i permessi, se l'utente non ha autorizzato l'app ad usare la fotocamera
             photoButton.setEnabled(false); //disabilito il bottone
             //richiedo i permessi
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
-        }
-        listView = findViewById(R.id.list_view);
+        }        
+        load tickets();
         adapter = new ArrayAdapter<Ticket>(this, android.R.layout.simple_list_item_1, tickets);
         listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
     }
 
     public void takePicture(View v){ //metodo che viene chiamato quando viene premuto il bottone "scatta foto"
@@ -95,14 +94,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode ==REQUEST_PHOTO && resultCode == RESULT_OK){
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String timeStamp = new SimpleDateFormat("dd.MM.yyyy ore HH:mm").format(new Date());
             String path = newPhoto.getAbsolutePath();
-            fileManager.createTicketAndInsert(path,timeStamp);
-            refreshTickets();
+            addTicketToView(fileManager.createTicketAndInsert(path,timeStamp));
         }
     }
 
-    private void refreshTickets(){
+   public void addTicketToView(Ticket t){
+        tickets.add(t);
+        adapter.notifyDataSetChanged();
+    }
+    
+    private void loadTickets(){
         tickets = fileManager.getTickets();
         for(Ticket t : tickets){
             Log.d(getResources().getString(R.string.debug_tag),"Foto in db: ");
@@ -111,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(getResources().getString(R.string.debug_tag),"URL: "+t.getUrlPicture());
         }
     }
-
 
     //chiama activity che visualizza lo scontrino selezionato
     //scritto da Olivieri con la spiegazione di Taschin
@@ -122,14 +124,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    /*private void setTickets(){
-        tickets = fileManager.getTickets();
-        listViewContent = new ArrayList<String>();
-        for(Ticket t : tickets){
-            listViewContent.add(t.getPictureName()+" "+t.getDate());
-        }
-    }*/
 
     @Override
     protected void onResume() {
