@@ -9,7 +9,7 @@ import java.net.URL;
  * Created by matteo.mascotto on 14/10/2017.
  */
 
-public class Ticket {
+public class Ticket implements Serializable{
     int ID;
     static String Date;
     static String UrlPicture;
