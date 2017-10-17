@@ -21,6 +21,7 @@ public class ViewTicketActivity extends AppCompatActivity {
 
     private String ticketName;
     private String ticketURL;
+    private static String SEND_TICKET_TO_ACTIVITY = "com.sw.ing.gestionescontrini.send_ticket_to_activity";
 
     private FileManager fileManager;
     private File filePhoto;
@@ -34,7 +35,7 @@ public class ViewTicketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_ticket);
 
         Intent intent = getIntent();
-        Ticket t = (Ticket) intent.getSerializableExtra("");
+        Ticket t = (Ticket) intent.getSerializableExtra(SEND_TICKET_TO_ACTIVITY);
         viewTicket(t);
     }
 
@@ -43,7 +44,7 @@ public class ViewTicketActivity extends AppCompatActivity {
         ticketName=t.getPictureName();
         ticketURL=t.getPictureName();
 
-        //filePhoto=
+        filePhoto= new File(ticketURL);
         Uri path = Uri.fromFile(filePhoto);
         text=(EditText) findViewById(R.id.textTicket);
         image=(ImageView) findViewById(R.id.ticketImage);
