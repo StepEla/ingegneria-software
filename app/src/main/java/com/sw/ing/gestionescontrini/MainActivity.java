@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             //richiedo i permessi
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
-        listView = findViewById(R.id.list);
+        listView = findViewById(R.id.list_view);
         adapter = new ArrayAdapter<Ticket>(this, android.R.layout.simple_list_item_1, tickets);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -112,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //chiama activity che visualizza lo scontrino selezionato
+    //scritto da Olivieri con la spiegazione di Taschin
+    public void chiamaViewTicketActivity(){
+        Ticket t = new Ticket();
+        Intent intent = new Intent();
+        intent.putExtra("PassaggioTicket",t);
+        startActivity(intent);
+    }
 
 
     /*private void setTickets(){
