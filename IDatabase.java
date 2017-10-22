@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-/**
+/**@author Marco Olivieri Federico Taschin
  * Interfaccia comune per utilizzare il database relativo agli scontrini.
  * Questa interfaccia definisce i metodi che la classe di gestione dei dati dovrà avere.  
  */
@@ -40,5 +40,5 @@ public interface IDatabase {
 	 * @param IPhotoItem ticket oggetto di cui verificare la presenza nel database in base all'identificatore
 	 * @return true se esiste già, false altrimenti
 	*/
-	boolean isTicket(IPhotoItem ticket);
+	boolean exists(IPhotoItem ticket);
 }
