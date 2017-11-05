@@ -22,7 +22,7 @@ public class Ticket {
     public Ticket() {
 		}
     
-    public Ticket2(int id, Uri fileUri, BigDecimal amount, String shop, Date date, String title) {
+    public Ticket(int id, Uri fileUri, BigDecimal amount, String shop, Date date, String title) {
         this.ID = id;
         this.amount = amount;
         this.date = date;
