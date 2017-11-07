@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Classe Ticket rappresenta l'oggetto scontrino con le informazioni ad esso associate
  *
- * Created by Marco Olivieri
+ * @author Marco Olivieri (Gruppo 3)
  */
 
 public class Ticket {
